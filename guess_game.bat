@@ -8,6 +8,7 @@ set _lines=0
 for /f "delims=" %%g in (riddles.csv) do set /a _lines+=1
 set /a _lines-=1
 
+title Points: %_point% Lives: %_lives%
 :loop
 call :get_question
 
@@ -16,8 +17,6 @@ if "%_answ%"=="" (
 )else (
 	set "_answ=%_answ:~1%"
 )
-
-title Points: %_point% Lives: %_lives%
 
 echo:
 set /p "_guess=Guess? "
@@ -28,6 +27,8 @@ if /i "%_guess%"=="%_answ%" (
 	echo That's wrong!&set /a _lives-=1
 )
 timeout 2 >nul
+
+title Points: %_point% Lives: %_lives%
 
 if %_lives% gtr 0 (
 	goto :loop
